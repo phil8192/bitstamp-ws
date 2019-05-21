@@ -42,7 +42,11 @@ public class BitstampClient implements Client {
 					RemoteEndpoint.Basic basicRemoteEndpoint = session.getBasicRemote();
 					if(basicRemoteEndpoint != null) {
 						basicRemoteEndpoint.sendObject(new Command());
-						//basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_btcusd\" }}");
+						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_ethusd\" }}");
+						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_xrpusd\" }}");
+						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_ltcusd\" }}");
+						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_btceur\" }}");
+						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_etheur\" }}");
 					}
 				} catch(EncodeException ee) {
 					ee.printStackTrace();
@@ -61,7 +65,7 @@ public class BitstampClient implements Client {
 		while (session.isOpen()) {
 			System.out.println("Waiting");
 			try {
-				TimeUnit.MILLISECONDS.sleep(10);
+				TimeUnit.SECONDS.sleep(1);
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}

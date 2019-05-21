@@ -8,8 +8,6 @@ public class Message {
 
 	@Override
 	public String toString() {
-		return "Message{" +
-				"s='" + s + '\'' +
-				'}';
+		return s;
 	}
 }

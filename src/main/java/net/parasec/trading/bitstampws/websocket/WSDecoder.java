@@ -7,7 +7,7 @@ import javax.websocket.Decoder;
 public class WSDecoder implements Decoder.Text<Message> {
 
 	public Message decode(String s) throws DecodeException {
-		return new Message("x");
+		return new Message(s);
 	}
 
 	public boolean willDecode(String s) {
