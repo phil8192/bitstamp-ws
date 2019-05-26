@@ -1,5 +1,6 @@
 package net.parasec.trading.bitstampws;
 
 public interface Client {
-	void subscribe(String channel, String pair);
+	void subscribeOrders(String pair, BitstampMessageHandler<Order> bitstampMessageHandler);
+	void subscribeTrades(String pair, BitstampMessageHandler<Trade> bitstampMessageHandler);
 }

@@ -1,78 +1,55 @@
 package net.parasec.trading.bitstampws;
 
-import net.parasec.trading.bitstampws.websocket.Command;
-import net.parasec.trading.bitstampws.websocket.Message;
-import net.parasec.trading.bitstampws.websocket.WSDecoder;
-import net.parasec.trading.bitstampws.websocket.WSEncoder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.parasec.trading.bitstampws.websocket.CommandEncoder;
+import net.parasec.trading.bitstampws.websocket.OrderDecoder;
+import net.parasec.trading.bitstampws.websocket.TradeDecoder;
 
-import javax.websocket.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
+import javax.websocket.ClientEndpointConfig;
+import javax.websocket.Decoder;
+import javax.websocket.Encoder;
+import javax.websocket.MessageHandler;
+import java.util.Collections;
+
 
 public class BitstampClient implements Client {
 
-	private final Logger logger = LogManager.getLogger(BitstampClient.class);
 
+	private void initChannel(MessageHandler messageHandler, Class<? extends Decoder> decoder) {
 
-	public BitstampClient() throws URISyntaxException, IOException, DeploymentException {
-
-		WebSocketContainer webSocketContainer = ContainerProvider.getWebSocketContainer();
-
-		@ClientEndpoint(encoders = { WSEncoder.class },
-				decoders = { WSDecoder.class })
-		final class MyEndpoint extends Endpoint {
-			//Endpoint endpoint = new Endpoint() {
-			@Override
-			public void onOpen(Session session, EndpointConfig endpointConfig) {
-				System.out.println("Websocket connected");
-				session.addMessageHandler(new MessageHandler.Whole<Message>() {
-
-					public void onMessage(Message s) {
-
-						System.out.println(s);
-					}
-				});
-				try {
-
-					RemoteEndpoint.Basic basicRemoteEndpoint = session.getBasicRemote();
-					if(basicRemoteEndpoint != null) {
-						basicRemoteEndpoint.sendObject(new Command());
-						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_ethusd\" }}");
-						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_xrpusd\" }}");
-						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_ltcusd\" }}");
-						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_btceur\" }}");
-						basicRemoteEndpoint.sendText("{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_etheur\" }}");
-					}
-				} catch(EncodeException ee) {
-					ee.printStackTrace();
-				} catch(IOException ioe) {
-					ioe.printStackTrace();
-				}
-			}
-		}
-
-		Endpoint endpoint = new MyEndpoint();
 		ClientEndpointConfig clientEndpointConfig = ClientEndpointConfig.Builder.create()
-				.encoders(Arrays.<Class<? extends Encoder>>asList(WSEncoder.class))
-				.decoders(Arrays.<Class<? extends Decoder>>asList(WSDecoder.class)).build();
-		Session session = webSocketContainer.connectToServer(endpoint, clientEndpointConfig, new URI("wss://ws.bitstamp.net"));
+				.encoders(Collections.<Class<? extends Encoder>>singletonList(CommandEncoder.class))
+				.decoders(Collections.<Class<? extends Decoder>>singletonList(decoder)).build();
 
-		while (session.isOpen()) {
-			System.out.println("Waiting");
-			try {
-				TimeUnit.SECONDS.sleep(1);
-			} catch(InterruptedException e) {
-				e.printStackTrace();
-			}
+		BitstampChannel bitstampChannel = new BitstampChannel(clientEndpointConfig, messageHandler);
+		try {
+			bitstampChannel.init();
+		} catch(Exception e) {
+
 		}
 	}
 
-	public void subscribe(String channel, String pair) {
+	public void subscribeOrders(String pair, final BitstampMessageHandler<Order> bitstampMessageHandler) {
 
+			MessageHandler messageHandler = new MessageHandler.Whole<Order>() {
+				public void onMessage(Order s) {
+					bitstampMessageHandler.onMessage(s);
+				}
+			};
+
+			initChannel(messageHandler, OrderDecoder.class);
 	}
+
+	public void subscribeTrades(String pair, final BitstampMessageHandler<Trade> bitstampMessageHandler) {
+
+		MessageHandler messageHandler = new MessageHandler.Whole<Trade>() {
+			public void onMessage(Trade s) {
+				bitstampMessageHandler.onMessage(s);
+			}
+		};
+
+		initChannel(messageHandler, TradeDecoder.class);
+	}
+
+
+
 }

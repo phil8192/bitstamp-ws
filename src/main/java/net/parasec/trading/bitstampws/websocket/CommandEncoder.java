@@ -4,7 +4,7 @@ import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
-public class WSEncoder implements Encoder.Text<Command> {
+public class CommandEncoder implements Encoder.Text<Command> {
 
 	public String encode(Command command) throws EncodeException {
 		System.out.println("encode.");

@@ -1,13 +1,15 @@
 package net.parasec.trading.bitstampws.websocket;
 
+import net.parasec.trading.bitstampws.Order;
+
 import javax.websocket.DecodeException;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Decoder;
 
-public class WSDecoder implements Decoder.Text<Message> {
+public class OrderDecoder implements Decoder.Text<Order> {
 
-	public Message decode(String s) throws DecodeException {
-		return new Message(s);
+	public Order decode(String s) throws DecodeException {
+		return new Order(s);
 	}
 
 	public boolean willDecode(String s) {
