@@ -1,8 +1,6 @@
 package net.parasec.trading.bitstampws;
 
-import net.parasec.trading.bitstampws.websocket.Command;
-import net.parasec.trading.bitstampws.websocket.OrderDecoder;
-import net.parasec.trading.bitstampws.websocket.CommandEncoder;
+import net.parasec.trading.bitstampws.websocket.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,7 +36,7 @@ public class BitstampChannel {
 				try {
 
 					RemoteEndpoint.Basic basicRemoteEndpoint = session.getBasicRemote();
-					basicRemoteEndpoint.sendObject(new Command());
+					basicRemoteEndpoint.sendObject(new Command(Event.SUBSCRIBE, Channel.LIVE_ORDERS, "btc_usd"));
 
 				} catch(EncodeException ee) {
 					ee.printStackTrace();

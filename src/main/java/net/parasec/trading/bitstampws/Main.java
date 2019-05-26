@@ -9,6 +9,7 @@ public class Main {
 		BitstampMessageHandler<Order> orderHandler = new BitstampMessageHandler<Order>() {
 			public void onMessage(Order order) {
 				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + order);
+
 			}
 		};
 
@@ -20,11 +21,7 @@ public class Main {
 		};
 
 		client.subscribeOrders("btc_usd", orderHandler);
-		//client.subscribeOrders("eth_usd", orderHandler);
-
 		//client.subscribeTrades("btc_usd", tradeHandler);
-
-
 
 		Thread.sleep(10000);
 

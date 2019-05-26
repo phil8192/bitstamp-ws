@@ -26,8 +26,7 @@ public class BitstampClient implements Client {
 
 	private final List<Session> sessions = new LinkedList<Session>();
 
-
-	private void initChannel(MessageHandler messageHandler, Class<? extends Decoder> decoder) {
+		private void initChannel(MessageHandler messageHandler, Class<? extends Decoder> decoder) {
 
 		ClientEndpointConfig clientEndpointConfig = ClientEndpointConfig.Builder.create()
 				.encoders(Collections.<Class<? extends Encoder>>singletonList(CommandEncoder.class))

@@ -7,7 +7,6 @@ import javax.websocket.EndpointConfig;
 public class CommandEncoder implements Encoder.Text<Command> {
 
 	public String encode(Command command) throws EncodeException {
-		System.out.println("encode.");
 		return "{\"event\": \"bts:subscribe\", \"data\": { \"channel\": \"live_orders_btcusd\" }}";
 	}
 
