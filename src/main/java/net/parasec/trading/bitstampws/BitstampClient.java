@@ -14,6 +14,16 @@ import java.util.Collections;
 public class BitstampClient implements Client {
 
 
+	private class MH<T> implements MessageHandler.Whole<T> {
+		BitstampMessageHandler<T> bitstampMessageHandler;
+		MH(BitstampMessageHandler<T> bitstampMessageHandler) {
+			this.bitstampMessageHandler = bitstampMessageHandler;
+		}
+		public void onMessage(T message) {
+			bitstampMessageHandler.onMessage(message);
+		}
+	}
+
 	private void initChannel(MessageHandler messageHandler, Class<? extends Decoder> decoder) {
 
 		ClientEndpointConfig clientEndpointConfig = ClientEndpointConfig.Builder.create()
@@ -30,23 +40,14 @@ public class BitstampClient implements Client {
 
 	public void subscribeOrders(String pair, final BitstampMessageHandler<Order> bitstampMessageHandler) {
 
-			MessageHandler messageHandler = new MessageHandler.Whole<Order>() {
-				public void onMessage(Order s) {
-					bitstampMessageHandler.onMessage(s);
-				}
-			};
+		MH<Order> messageHandler = new MH<Order>(bitstampMessageHandler);
+		initChannel(messageHandler, OrderDecoder.class);
 
-			initChannel(messageHandler, OrderDecoder.class);
 	}
 
 	public void subscribeTrades(String pair, final BitstampMessageHandler<Trade> bitstampMessageHandler) {
 
-		MessageHandler messageHandler = new MessageHandler.Whole<Trade>() {
-			public void onMessage(Trade s) {
-				bitstampMessageHandler.onMessage(s);
-			}
-		};
-
+		MH<Trade> messageHandler = new MH<Trade>(bitstampMessageHandler);
 		initChannel(messageHandler, TradeDecoder.class);
 	}
 
