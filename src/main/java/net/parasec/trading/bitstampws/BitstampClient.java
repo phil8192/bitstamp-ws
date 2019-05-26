@@ -42,17 +42,24 @@ public class BitstampClient implements Client {
 
 	}
 
-	public void subscribeOrders(String pair, final BitstampMessageHandler<Order> bitstampMessageHandler) {
+	public String subscribeOrders(String pair, final BitstampMessageHandler<Order> bitstampMessageHandler) {
 
 		MH<Order> messageHandler = new MH<Order>(bitstampMessageHandler);
 		initChannel(messageHandler, OrderDecoder.class);
 
+		return null;
 	}
 
-	public void subscribeTrades(String pair, final BitstampMessageHandler<Trade> bitstampMessageHandler) {
+	public String subscribeTrades(String pair, final BitstampMessageHandler<Trade> bitstampMessageHandler) {
 
 		MH<Trade> messageHandler = new MH<Trade>(bitstampMessageHandler);
 		initChannel(messageHandler, TradeDecoder.class);
+
+		return null;
+	}
+
+	public void unsubscribe(String id) {
+
 	}
 
 	public void close() {
