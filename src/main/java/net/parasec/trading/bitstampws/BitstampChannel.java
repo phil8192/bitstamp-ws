@@ -21,7 +21,7 @@ public class BitstampChannel {
 		this.messageHandler = messageHandler;
 	}
 
-	Session init() throws URISyntaxException, IOException, DeploymentException {
+	Session init(final Channel channel, final String pair) throws URISyntaxException, IOException, DeploymentException {
 
 		WebSocketContainer webSocketContainer = ContainerProvider.getWebSocketContainer();
 
@@ -34,7 +34,7 @@ public class BitstampChannel {
 				try {
 
 					RemoteEndpoint.Basic basicRemoteEndpoint = session.getBasicRemote();
-					basicRemoteEndpoint.sendObject(new Command(Event.SUBSCRIBE, Channel.LIVE_ORDERS, "btc_usd"));
+					basicRemoteEndpoint.sendObject(new Command(Event.SUBSCRIBE, channel, pair));
 
 				} catch(EncodeException ee) {
 					ee.printStackTrace();

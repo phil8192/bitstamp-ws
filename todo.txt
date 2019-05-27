@@ -1,0 +1,3 @@
+Websocket connected
+{"event": "bts:subscribe","data": {"channel": live_trades_btc_usd}}
+Grizzly(1)-16 {"event":"bts:error","channel":"","data":{"code":null,"message":"Incorrect JSON format."}}

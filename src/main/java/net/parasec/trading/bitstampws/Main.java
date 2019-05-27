@@ -20,12 +20,17 @@ public class Main {
 			}
 		};
 
-		client.subscribeOrders("btc_usd", orderHandler);
-		//client.subscribeTrades("btc_usd", tradeHandler);
+		client.subscribeOrders("btcusd", orderHandler);
+		client.subscribeTrades("btcusd", tradeHandler);
+
+		client.subscribeOrders("ethusd", orderHandler);
+		client.subscribeTrades("ethusd", tradeHandler);
+
+		client.subscribeOrders("xrpusd", orderHandler);
+		client.subscribeTrades("xrpusd", tradeHandler);
 
 		Thread.sleep(10000);
 
 		client.close();
-
 	}
 }

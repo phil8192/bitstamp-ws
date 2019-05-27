@@ -17,9 +17,9 @@ public class Command {
 	public String toString() {
 		// dirty to json.
 		return "{" +
-				"\"event\": \"bts:" + event.toString().toLowerCase() + "," +
+				"\"event\": \"bts:" + event.toString().toLowerCase() + "\"," +
 				"\"data\": {" +
-				"\"channel\": \"[" + channel.toString().toLowerCase() + "_" + pair + "]" +
+				"\"channel\": \"" + channel.toString().toLowerCase() + "_" + pair + "\"" +
 				"}}";
 	}
 }
