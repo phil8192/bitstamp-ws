@@ -9,7 +9,6 @@ public class Main {
 		BitstampMessageHandler<Order> orderHandler = new BitstampMessageHandler<Order>() {
 			public void onMessage(Order order) {
 				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + order);
-
 			}
 		};
 

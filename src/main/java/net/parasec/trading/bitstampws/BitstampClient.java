@@ -6,7 +6,6 @@ import net.parasec.trading.bitstampws.websocket.OrderDecoder;
 import net.parasec.trading.bitstampws.websocket.TradeDecoder;
 
 import javax.websocket.*;
-import java.io.IOException;
 import java.util.*;
 
 
