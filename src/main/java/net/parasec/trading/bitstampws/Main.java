@@ -15,8 +15,8 @@ public class Main {
 
 		BitstampMessageHandler<Trade> tradeHandler = new BitstampMessageHandler<Trade>() {
 
-			public void onMessage(Trade order) {
-				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + order);
+			public void onMessage(Trade trade) {
+				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + trade);
 			}
 		};
 

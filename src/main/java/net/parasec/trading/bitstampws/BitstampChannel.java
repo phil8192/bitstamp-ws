@@ -16,12 +16,22 @@ public class BitstampChannel {
 	private final ClientEndpointConfig clientEndpointConfig;
 	private final MessageHandler messageHandler;
 
-	public BitstampChannel(ClientEndpointConfig clientEndpointConfig, MessageHandler messageHandler) {
+	private Channel channel;
+	private String pair;
+
+	private Session session;
+
+	public BitstampChannel(ClientEndpointConfig clientEndpointConfig,
+												 MessageHandler messageHandler,
+												 Channel channel,
+												 String pair) {
 		this.clientEndpointConfig = clientEndpointConfig;
 		this.messageHandler = messageHandler;
+		this.channel = channel;
+		this.pair = pair;
 	}
 
-	Session init(final Channel channel, final String pair) throws URISyntaxException, IOException, DeploymentException {
+	void init() throws URISyntaxException, IOException, DeploymentException {
 
 		WebSocketContainer webSocketContainer = ContainerProvider.getWebSocketContainer();
 
@@ -55,10 +65,15 @@ public class BitstampChannel {
 				System.out.println("error: " + thr);
 			}
 		}
+		this.session = webSocketContainer.connectToServer(new MyEndpoint(), clientEndpointConfig, new URI("wss://ws.bitstamp.net"));
+	}
 
-		Endpoint endpoint = new MyEndpoint();
-
-		return webSocketContainer.connectToServer(endpoint, clientEndpointConfig, new URI("wss://ws.bitstamp.net"));
-
+	void close() {
+		try {
+			session.getBasicRemote().sendObject(new Command(Event.UNSUBSCRIBE, channel, pair));
+			session.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

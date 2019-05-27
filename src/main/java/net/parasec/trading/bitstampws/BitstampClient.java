@@ -25,7 +25,7 @@ public class BitstampClient implements Client {
 		}
 	}
 
-	private final Map<String, Session> sessions = new HashMap<String, Session>();
+	private final Map<String, BitstampChannel> bitstampChannels = new HashMap<String, BitstampChannel>();
 
 
 	private String initChannel(MessageHandler messageHandler, Class<? extends Decoder> decoder,
@@ -36,11 +36,11 @@ public class BitstampClient implements Client {
 				.encoders(Collections.<Class<? extends Encoder>>singletonList(CommandEncoder.class))
 				.decoders(Collections.<Class<? extends Decoder>>singletonList(decoder)).build();
 
-		BitstampChannel bitstampChannel = new BitstampChannel(clientEndpointConfig, messageHandler);
+		BitstampChannel bitstampChannel = new BitstampChannel(clientEndpointConfig, messageHandler, channel, pair);
 		try {
-			Session session = bitstampChannel.init(channel, pair);
+			bitstampChannel.init();
 			String id = UUID.randomUUID().toString();
-			sessions.put(id, session);
+			bitstampChannels.put(id, bitstampChannel);
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,23 +59,16 @@ public class BitstampClient implements Client {
 	}
 
 	public void unsubscribe(String id) {
-		Session session = sessions.remove(id);
-		try {
-			session.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		BitstampChannel bitstampChannel = bitstampChannels.remove(id);
+		bitstampChannel.close();
 	}
 
 	public void close() {
-		try {
-			for (Iterator<Map.Entry<String, Session>> it = sessions.entrySet().iterator(); it.hasNext(); ) {
-				Map.Entry<String, Session> entry = it.next();
-				entry.getValue().close();
-				it.remove();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		for (Iterator<Map.Entry<String, BitstampChannel>> it = bitstampChannels.entrySet().iterator();
+				 it.hasNext(); ) {
+			Map.Entry<String, BitstampChannel> entry = it.next();
+			entry.getValue().close();
+			it.remove();
 		}
 	}
 }
