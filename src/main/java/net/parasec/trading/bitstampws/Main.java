@@ -13,20 +13,42 @@ public class Main {
 		};
 
 		BitstampMessageHandler<TradeEvent> tradeHandler = new BitstampMessageHandler<TradeEvent>() {
-
 			public void onMessage(TradeEvent trade) {
 				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + trade);
 			}
 		};
 
-		client.subscribeOrders("btcusd", orderHandler);
-		client.subscribeTrades("btcusd", tradeHandler);
+		BitstampMessageHandler<OrderBookEvent> orderBookHandler = new BitstampMessageHandler<OrderBookEvent>() {
+			public void onMessage(OrderBookEvent orderBookEvent) {
+				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + orderBookEvent);
+			}
+		};
 
-		client.subscribeOrders("ethusd", orderHandler);
-		client.subscribeTrades("ethusd", tradeHandler);
+		BitstampMessageHandler<DetailOrderBookEvent> detailOrderBookHandler = new BitstampMessageHandler<DetailOrderBookEvent>() {
+			public void onMessage(DetailOrderBookEvent detailOrderBookEvent) {
+				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + detailOrderBookEvent);
+			}
+		};
 
-		client.subscribeOrders("xrpusd", orderHandler);
-		client.subscribeTrades("xrpusd", tradeHandler);
+		BitstampMessageHandler<DiffOrderBookEvent> diffOrderBookHandler = new BitstampMessageHandler<DiffOrderBookEvent>() {
+			public void onMessage(DiffOrderBookEvent diffOrderBookEvent) {
+				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + diffOrderBookEvent);
+			}
+		};
+
+
+//		client.subscribeOrders("btcusd", orderHandler);
+//		client.subscribeTrades("btcusd", tradeHandler);
+//
+//		client.subscribeOrders("ethusd", orderHandler);
+//		client.subscribeTrades("ethusd", tradeHandler);
+//
+//		client.subscribeOrders("xrpusd", orderHandler);
+//		client.subscribeTrades("xrpusd", tradeHandler);
+
+		client.subscribeOrderBook("btcusd", orderBookHandler);
+		//client.subscribeDetailOrderBook("btcusd", detailOrderBookHandler);
+		//client.subscribeDiffOrderBook("btcusd", diffOrderBookHandler);
 
 		Thread.sleep(10000);
 

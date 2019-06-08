@@ -1,9 +1,6 @@
 package net.parasec.trading.bitstampws;
 
-import net.parasec.trading.bitstampws.websocket.Channel;
-import net.parasec.trading.bitstampws.websocket.CommandEncoder;
-import net.parasec.trading.bitstampws.websocket.OrderDecoder;
-import net.parasec.trading.bitstampws.websocket.TradeDecoder;
+import net.parasec.trading.bitstampws.websocket.*;
 
 import javax.websocket.*;
 import java.util.*;
@@ -55,6 +52,21 @@ public class BitstampClient implements Client {
 	public String subscribeTrades(String pair, BitstampMessageHandler<TradeEvent> bitstampMessageHandler) {
 		MH<TradeEvent> messageHandler = new MH<TradeEvent>(bitstampMessageHandler);
 		return initChannel(messageHandler, TradeDecoder.class, Channel.LIVE_TRADES, pair);
+	}
+
+	public String subscribeOrderBook(String pair, BitstampMessageHandler<OrderBookEvent> bitstampMessageHandler) {
+		MH<OrderBookEvent> messageHandler = new MH<OrderBookEvent>(bitstampMessageHandler);
+		return initChannel(messageHandler, OrderBookDecoder.class, Channel.ORDER_BOOK, pair);
+	}
+
+	public String subscribeDetailOrderBook(String pair, BitstampMessageHandler<DetailOrderBookEvent> bitstampMessageHandler) {
+		MH<DetailOrderBookEvent> messageHandler = new MH<DetailOrderBookEvent>(bitstampMessageHandler);
+		return initChannel(messageHandler, DetailOrderBookDecoder.class, Channel.DETAIL_ORDER_BOOK, pair);
+	}
+
+	public String subscribeDiffOrderBook(String pair, BitstampMessageHandler<DiffOrderBookEvent> bitstampMessageHandler) {
+		MH<DiffOrderBookEvent> messageHandler = new MH<DiffOrderBookEvent>(bitstampMessageHandler);
+		return initChannel(messageHandler, DiffOrderBookDecoder.class, Channel.DIFF_ORDER_BOOK, pair);
 	}
 
 	public void unsubscribe(String id) {
