@@ -12,9 +12,9 @@ public class Main {
 			}
 		};
 
-		BitstampMessageHandler<Trade> tradeHandler = new BitstampMessageHandler<Trade>() {
+		BitstampMessageHandler<TradeEvent> tradeHandler = new BitstampMessageHandler<TradeEvent>() {
 
-			public void onMessage(Trade trade) {
+			public void onMessage(TradeEvent trade) {
 				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + trade);
 			}
 		};

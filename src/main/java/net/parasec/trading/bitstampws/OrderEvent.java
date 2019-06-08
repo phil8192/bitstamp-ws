@@ -2,28 +2,23 @@ package net.parasec.trading.bitstampws;
 
 import com.dslplatform.json.CompiledJson;
 import com.dslplatform.json.JsonAttribute;
+import net.parasec.trading.bitstampws.websocket.EventType;
 
 @CompiledJson
 public class OrderEvent {
 
-	enum Type {
-		order_created,
-		order_deleted,
-		order_updated
-	}
-
-	private Type event;
+	private EventType event;
 	private String channel;
 	private Order order;
 
-	public OrderEvent(Type event, String channel, Order order) {
+	public OrderEvent(EventType event, String channel, Order order) {
 		this.event = event;
 		this.channel = channel;
 		this.order = order;
 	}
 
 	@JsonAttribute(name = "event", nullable = false)
-	public void setEvent(Type event) {
+	public void setEvent(EventType event) {
 		this.event = event;
 	}
 
@@ -37,7 +32,7 @@ public class OrderEvent {
 		this.order = order;
 	}
 
-	public Type getEvent() {
+	public EventType getEvent() {
 		return event;
 	}
 

@@ -44,7 +44,8 @@ public class BitstampChannel {
 				try {
 
 					RemoteEndpoint.Basic basicRemoteEndpoint = session.getBasicRemote();
-					basicRemoteEndpoint.sendObject(new Command(Event.SUBSCRIBE, channel, pair));
+					Command command = new Command(Event.SUBSCRIBE, channel, pair);
+					basicRemoteEndpoint.sendObject(command);
 
 				} catch(EncodeException ee) {
 					ee.printStackTrace();

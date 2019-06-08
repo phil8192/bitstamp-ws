@@ -8,6 +8,8 @@ import javax.websocket.EndpointConfig;
 import javax.websocket.Decoder;
 import java.io.IOException;
 
+
+// todo: figure out Decoder.BinaryStream<OrderEvent>
 public class OrderDecoder implements Decoder.Text<OrderEvent> {
 
 	private DslJson<Object> dslJson
