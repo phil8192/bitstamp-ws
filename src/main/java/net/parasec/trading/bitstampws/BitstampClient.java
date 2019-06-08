@@ -47,8 +47,8 @@ public class BitstampClient implements Client {
 		return null;
 	}
 
-	public String subscribeOrders(String pair, BitstampMessageHandler<Order> bitstampMessageHandler) {
-		MH<Order> messageHandler = new MH<Order>(bitstampMessageHandler);
+	public String subscribeOrders(String pair, BitstampMessageHandler<OrderEvent> bitstampMessageHandler) {
+		MH<OrderEvent> messageHandler = new MH<OrderEvent>(bitstampMessageHandler);
 		return initChannel(messageHandler, OrderDecoder.class, Channel.LIVE_ORDERS, pair);
 	}
 

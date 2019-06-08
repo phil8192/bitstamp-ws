@@ -1,15 +1,27 @@
 package net.parasec.trading.bitstampws.websocket;
 
-import net.parasec.trading.bitstampws.Order;
+import com.dslplatform.json.DslJson;
+import com.dslplatform.json.runtime.Settings;
+import net.parasec.trading.bitstampws.OrderEvent;
 
-import javax.websocket.DecodeException;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Decoder;
+import java.io.IOException;
 
-public class OrderDecoder implements Decoder.Text<Order> {
+public class OrderDecoder implements Decoder.Text<OrderEvent> {
 
-	public Order decode(String s) throws DecodeException {
-		return new Order(s);
+	private DslJson<Object> dslJson
+			= new DslJson<Object>(Settings.withRuntime().allowArrayFormat(true).includeServiceLoader());
+
+	public OrderEvent decode(String s) {
+		System.out.print(s);
+		try {
+			byte[] bytes = s.getBytes("UTF-8");
+			return dslJson.deserialize(OrderEvent.class, bytes, bytes.length);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public boolean willDecode(String s) {

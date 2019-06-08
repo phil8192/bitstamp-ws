@@ -6,8 +6,8 @@ public class Main {
 
 		Client client = new BitstampClient();
 
-		BitstampMessageHandler<Order> orderHandler = new BitstampMessageHandler<Order>() {
-			public void onMessage(Order order) {
+		BitstampMessageHandler<OrderEvent> orderHandler = new BitstampMessageHandler<OrderEvent>() {
+			public void onMessage(OrderEvent order) {
 				System.out.println(Thread.currentThread().getName() + "-" + Thread.currentThread().getId() + " " + order);
 			}
 		};
