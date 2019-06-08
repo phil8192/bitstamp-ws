@@ -14,7 +14,6 @@ public class OrderDecoder implements Decoder.Text<OrderEvent> {
 			= new DslJson<Object>(Settings.withRuntime().allowArrayFormat(true).includeServiceLoader());
 
 	public OrderEvent decode(String s) {
-		System.out.print(s);
 		try {
 			byte[] bytes = s.getBytes("UTF-8");
 			return dslJson.deserialize(OrderEvent.class, bytes, bytes.length);

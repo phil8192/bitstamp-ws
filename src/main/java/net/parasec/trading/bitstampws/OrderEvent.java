@@ -6,18 +6,24 @@ import com.dslplatform.json.JsonAttribute;
 @CompiledJson
 public class OrderEvent {
 
-	private String event;
+	enum Type {
+		order_created,
+		order_deleted,
+		order_updated
+	}
+
+	private Type event;
 	private String channel;
 	private Order order;
 
-	public OrderEvent(String event, String channel, Order order) {
+	public OrderEvent(Type event, String channel, Order order) {
 		this.event = event;
 		this.channel = channel;
 		this.order = order;
 	}
 
 	@JsonAttribute(name = "event", nullable = false)
-	public void setEvent(String event) {
+	public void setEvent(Type event) {
 		this.event = event;
 	}
 
@@ -31,7 +37,7 @@ public class OrderEvent {
 		this.order = order;
 	}
 
-	public String getEvent() {
+	public Type getEvent() {
 		return event;
 	}
 
