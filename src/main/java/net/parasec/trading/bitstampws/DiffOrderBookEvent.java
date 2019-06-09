@@ -24,9 +24,9 @@ public class DiffOrderBookEvent {
 
 		// [price, amount, order id]
 		@JsonAttribute(name = "asks", nullable = false)
-		public String[][] asks;
+		public double[][] asks;
 		@JsonAttribute(name = "bids", nullable = false)
-		public String[][] bids;
+		public double[][] bids;
 
 		@Override
 		public String toString() {
