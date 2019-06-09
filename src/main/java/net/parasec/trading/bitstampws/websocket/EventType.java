@@ -8,7 +8,8 @@ public enum EventType {
 	ORDER_UPDATED("order_updated"),
   TRADE("trade"),
 	SUBSCRIPTION_SUCCEEDED("bts:subscription_succeeded"),
-	FORCED_RECONNECT("bts:request_reconnect");
+	FORCED_RECONNECT("bts:request_reconnect"),
+	DATA("data"); //ob
 
 	String s;
 	EventType(String s) {
