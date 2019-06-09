@@ -46,8 +46,8 @@ public class Main {
 //		client.subscribeOrders("xrpusd", orderHandler);
 //		client.subscribeTrades("xrpusd", tradeHandler);
 
-		client.subscribeOrderBook("btcusd", orderBookHandler);
-		//client.subscribeDetailOrderBook("btcusd", detailOrderBookHandler);
+		//client.subscribeOrderBook("btcusd", orderBookHandler);
+		client.subscribeDetailOrderBook("btcusd", detailOrderBookHandler);
 		//client.subscribeDiffOrderBook("btcusd", diffOrderBookHandler);
 
 		Thread.sleep(10000);

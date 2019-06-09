@@ -9,50 +9,20 @@ import java.util.stream.Collectors;
 
 @CompiledJson
 public class OrderBookEvent {
-	private EventType event;
-	private String channel;
-	private OrderBook orderBook;
-
 	@JsonAttribute(name = "event", nullable = false)
-	public void setEvent(EventType event) {
-		this.event = event;
-	}
-
+	public EventType event;
 	@JsonAttribute(name = "channel", nullable = false)
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
-
+	public String channel;
 	@JsonAttribute(name = "data", nullable = false)
-	public void setOrderBook(OrderBook orderBook) {
-		this.orderBook = orderBook;
-	}
-
-
-	public OrderBookEvent(EventType event, String channel, OrderBook orderBook) {
-		this.event = event;
-		this.channel = channel;
-		this.orderBook = orderBook;
-	}
-
-	public EventType getEvent() {
-		return event;
-	}
-
-	public String getChannel() {
-		return channel;
-	}
-
-	public OrderBook getOrderBook() {
-		return orderBook;
-	}
-
+	public OrderBook orderBook;
 
 	static class OrderBook {
 		@JsonAttribute(name = "timestamp", nullable = false)
 		public int timestamp;
 		@JsonAttribute(name = "microtimestamp", nullable = false)
 		public long microTimestamp;
+
+		// price level, volume at price level (not individual orders)
 		@JsonAttribute(name = "asks", nullable = false)
 		public double[][] asks;
 		@JsonAttribute(name = "bids", nullable = false)
@@ -60,7 +30,6 @@ public class OrderBookEvent {
 
 		@Override
 		public String toString() {
-
 			return "OrderBook{" +
 					"timestamp=" + timestamp +
 					", microTimestamp=" + microTimestamp +
