@@ -2,17 +2,15 @@ package net.parasec.trading.bitstampws;
 
 import com.dslplatform.json.CompiledJson;
 import com.dslplatform.json.JsonAttribute;
+import net.parasec.trading.bitstampws.websocket.Event;
 import net.parasec.trading.bitstampws.websocket.EventType;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @CompiledJson
-public class DiffOrderBookEvent {
-	@JsonAttribute(name = "event", nullable = false)
-	public EventType event;
-	@JsonAttribute(name = "channel", nullable = false)
-	public String channel;
+public class DiffOrderBookEvent extends Event {
+
 	@JsonAttribute(name = "data", nullable = false)
 	public OrderBook orderBook;
 

@@ -2,47 +2,15 @@ package net.parasec.trading.bitstampws;
 
 import com.dslplatform.json.CompiledJson;
 import com.dslplatform.json.JsonAttribute;
+import net.parasec.trading.bitstampws.websocket.Event;
 import net.parasec.trading.bitstampws.websocket.EventType;
 
 @CompiledJson
-public class OrderEvent {
-
-	private EventType event;
-	private String channel;
-	private Order order;
-
-	public OrderEvent(EventType event, String channel, Order order) {
-		this.event = event;
-		this.channel = channel;
-		this.order = order;
-	}
-
-	@JsonAttribute(name = "event", nullable = false)
-	public void setEvent(EventType event) {
-		this.event = event;
-	}
-
-	@JsonAttribute(name = "channel", nullable = false)
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
+public class OrderEvent extends Event {
 
 	@JsonAttribute(name = "data", nullable = false)
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+	public Order order;
 
-	public EventType getEvent() {
-		return event;
-	}
-
-	public String getChannel() {
-		return channel;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
 
 	static class Order {
 

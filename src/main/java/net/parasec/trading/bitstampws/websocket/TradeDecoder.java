@@ -15,7 +15,6 @@ public class TradeDecoder implements Decoder.Text<TradeEvent> {
 
 
 	public TradeEvent decode(String s) {
-		System.out.println(s);
 		try {
 			byte[] bytes = s.getBytes("UTF-8");
 			return dslJson.deserialize(TradeEvent.class, bytes, bytes.length);

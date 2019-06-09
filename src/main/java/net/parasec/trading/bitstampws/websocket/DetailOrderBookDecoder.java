@@ -14,7 +14,6 @@ public class DetailOrderBookDecoder implements Decoder.Text<DetailOrderBookEvent
 			= new DslJson<Object>(Settings.withRuntime().allowArrayFormat(true).includeServiceLoader());
 
 	public DetailOrderBookEvent decode(String s) {
-		System.out.println(s);
 		try {
 			byte[] bytes = s.getBytes("UTF-8");
 			return dslJson.deserialize(DetailOrderBookEvent.class, bytes, bytes.length);

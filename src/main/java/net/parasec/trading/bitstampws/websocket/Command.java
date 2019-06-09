@@ -3,11 +3,11 @@ package net.parasec.trading.bitstampws.websocket;
 // https://www.bitstamp.net/websocket/v2/
 public class Command {
 
-	private Event event;
+	private ChannelEvent event;
 	private Channel channel;
 	private String pair;
 
-	public Command(Event event, Channel channel, String pair) {
+	public Command(ChannelEvent event, Channel channel, String pair) {
 		this.event = event;
 		this.channel = channel;
 		this.pair = pair;

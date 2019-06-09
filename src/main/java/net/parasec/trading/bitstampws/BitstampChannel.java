@@ -36,31 +36,27 @@ public class BitstampChannel {
 
 			@Override
 			public void onOpen(Session session, EndpointConfig endpointConfig) {
-				System.out.println("Websocket connected");
 				session.addMessageHandler(messageHandler);
 				try {
 
 					RemoteEndpoint.Basic basicRemoteEndpoint = session.getBasicRemote();
-					Command command = new Command(Event.SUBSCRIBE, channel, pair);
+					Command command = new Command(ChannelEvent.SUBSCRIBE, channel, pair);
 					basicRemoteEndpoint.sendObject(command);
 
-				} catch(EncodeException ee) {
-					ee.printStackTrace();
-				} catch(IOException ioe) {
-					ioe.printStackTrace();
+				} catch(Exception e) {
+					e.printStackTrace();
 				}
 			}
 
 			@Override
 			public void onClose(Session session, CloseReason closeReason) {
 				super.onClose(session, closeReason);
-				System.out.println("closed: " + closeReason);
 			}
 
 			@Override
 			public void onError(Session session, Throwable thr) {
 				super.onError(session, thr);
-				System.out.println("error: " + thr);
+				System.err.println("error: " + thr);
 			}
 		}
 		this.session = webSocketContainer.connectToServer(new MyEndpoint(), clientEndpointConfig, new URI("wss://ws.bitstamp.net"));
@@ -68,7 +64,7 @@ public class BitstampChannel {
 
 	void close() {
 		try {
-			session.getBasicRemote().sendObject(new Command(Event.UNSUBSCRIBE, channel, pair));
+			session.getBasicRemote().sendObject(new Command(ChannelEvent.UNSUBSCRIBE, channel, pair));
 			session.close();
 		} catch(Exception e) {
 			e.printStackTrace();

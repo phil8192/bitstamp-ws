@@ -9,7 +9,7 @@ import java.util.*;
 public class BitstampClient implements Client {
 
 	// de-couple javax.websocket.MessageHandler from Client.
-	private class MH<T> implements MessageHandler.Whole<T> {
+	private class MH<T extends Event> implements MessageHandler.Whole<T> {
 		BitstampMessageHandler<T> bitstampMessageHandler;
 
 		MH(BitstampMessageHandler<T> bitstampMessageHandler) {
@@ -17,7 +17,13 @@ public class BitstampClient implements Client {
 		}
 
 		public void onMessage(T message) {
+
+			// intercept control messages here.
+			// do not pass onto client.
+			System.out.println("event: " + message.event);
+
 			bitstampMessageHandler.onMessage(message);
+
 		}
 	}
 

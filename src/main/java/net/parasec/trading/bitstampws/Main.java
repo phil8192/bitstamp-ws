@@ -38,7 +38,7 @@ public class Main {
 
 
 //		client.subscribeOrders("btcusd", orderHandler);
-//		client.subscribeTrades("btcusd", tradeHandler);
+		client.subscribeTrades("btcusd", tradeHandler);
 //
 //		client.subscribeOrders("ethusd", orderHandler);
 //		client.subscribeTrades("ethusd", tradeHandler);
@@ -48,10 +48,15 @@ public class Main {
 
 		//client.subscribeOrderBook("btcusd", orderBookHandler);
 		//client.subscribeDetailOrderBook("btcusd", detailOrderBookHandler);
-		client.subscribeDiffOrderBook("btcusd", diffOrderBookHandler);
+		//client.subscribeDiffOrderBook("btcusd", diffOrderBookHandler);
 
-		Thread.sleep(10000);
 
-		client.close();
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> client.close()));
+
+		while (true) {
+			Thread.sleep(10000);
+		}
+
+
 	}
 }

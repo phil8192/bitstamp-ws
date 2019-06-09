@@ -14,7 +14,6 @@ public class DiffOrderBookDecoder implements Decoder.Text<DiffOrderBookEvent> {
 			= new DslJson<Object>(Settings.withRuntime().allowArrayFormat(true).includeServiceLoader());
 
 	public DiffOrderBookEvent decode(String s) {
-		System.out.println(s);
 		try {
 			byte[] bytes = s.getBytes("UTF-8");
 			return dslJson.deserialize(DiffOrderBookEvent.class, bytes, bytes.length);

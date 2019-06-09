@@ -2,48 +2,15 @@ package net.parasec.trading.bitstampws;
 
 import com.dslplatform.json.CompiledJson;
 import com.dslplatform.json.JsonAttribute;
+import net.parasec.trading.bitstampws.websocket.Event;
 import net.parasec.trading.bitstampws.websocket.EventType;
 
 @CompiledJson
-public class TradeEvent {
-
-	private EventType eventType;
-	private String channel;
-	private Trade trade;
-
-
-	public TradeEvent(EventType eventType, String channel, Trade trade) {
-		this.eventType = eventType;
-		this.channel = channel;
-		this.trade = trade;
-	}
-
-	public EventType getEventType() {
-		return eventType;
-	}
-
-	@JsonAttribute(name = "event", nullable = false)
-	public void setEventType(String eventType) {
-		this.eventType = EventType.valueOf(eventType);
-	}
-
-	public String getChannel() {
-		return channel;
-	}
-
-	@JsonAttribute(name = "channel", nullable = false)
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
-
-	public Trade getTrade() {
-		return trade;
-	}
+public class TradeEvent extends Event {
 
 	@JsonAttribute(name = "data", nullable = false)
-	public void setTrade(Trade trade) {
-		this.trade = trade;
-	}
+	public Trade trade;
+
 
 	static class Trade {
 		private long id;
@@ -180,9 +147,9 @@ public class TradeEvent {
 	@Override
 	public String toString() {
 		return "TradeEvent{" +
-				"eventType=" + eventType +
+				"trade=" + trade +
+				", event=" + event +
 				", channel='" + channel + '\'' +
-				", trade=" + trade +
 				'}';
 	}
 }
