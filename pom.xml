@@ -10,11 +10,6 @@
         </properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.11.2</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.websocket</groupId>
 			<artifactId>javax.websocket-client-api</artifactId>
 			<version>1.1</version>
@@ -24,11 +19,6 @@
 			<artifactId>tyrus-standalone-client</artifactId>
 			<version>1.15</version>
 		</dependency>
-		<!-- dependency>
-			<groupId>com.dslplatform</groupId>
-			<artifactId>dsl-json-processor</artifactId>
-			<version>1.9.3</version>
-		</dependency -->
 		<dependency>
 			<groupId>com.dslplatform</groupId>
 			<artifactId>dsl-json-java8</artifactId>

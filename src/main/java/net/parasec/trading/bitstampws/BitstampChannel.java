@@ -1,8 +1,6 @@
 package net.parasec.trading.bitstampws;
 
 import net.parasec.trading.bitstampws.websocket.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.websocket.*;
 import java.io.IOException;
@@ -12,7 +10,6 @@ import java.net.URISyntaxException;
 
 public class BitstampChannel {
 
-	private final Logger logger = LogManager.getLogger(BitstampChannel.class);
 	private final ClientEndpointConfig clientEndpointConfig;
 	private final MessageHandler messageHandler;
 
