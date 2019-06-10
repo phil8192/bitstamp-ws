@@ -9,16 +9,14 @@ import java.lang.reflect.ParameterizedType;
 
 public class EventDecoder<T> implements javax.websocket.Decoder.Text<T> {
 
-	private Class<T> _type;
-
-	private DslJson<Object> dslJson
-			= new DslJson<>(Settings.withRuntime().allowArrayFormat(true).includeServiceLoader());
+	private Class<T> type;
+	private DslJson<Object> dslJson;
 
 
 	public T decode(String s) {
 		try {
 			byte[] bytes = s.getBytes("UTF-8");
-			return dslJson.deserialize(_type, bytes, bytes.length);
+			return dslJson.deserialize(type, bytes, bytes.length);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,7 +28,8 @@ public class EventDecoder<T> implements javax.websocket.Decoder.Text<T> {
 	}
 
 	public void init(EndpointConfig endpointConfig) {
-		this._type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		this.dslJson = new DslJson<>(Settings.withRuntime().allowArrayFormat(true).includeServiceLoader());
 	}
 
 	public void destroy() {
