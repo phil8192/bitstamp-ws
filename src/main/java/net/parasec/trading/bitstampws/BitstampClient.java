@@ -62,8 +62,6 @@ public class BitstampClient implements Client {
 	}
 
 	public String subscribeTrades(String pair, BitstampMessageHandler<TradeEvent> bitstampMessageHandler) {
-		//return initChannel(new MH<>(bitstampMessageHandler), TradeDecoder.class, Channel.LIVE_TRADES, pair);
-
 		return initChannel(new MH<>(bitstampMessageHandler), Decoders.TradeDecoder.class, Channel.LIVE_TRADES, pair);
 	}
 
