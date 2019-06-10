@@ -5,7 +5,7 @@ import com.dslplatform.json.JsonValue;
 public enum EventType {
 	ORDER_CREATED("order_created"),
 	ORDER_DELETED("order_deleted"),
-	ORDER_UPDATED("order_updated"),
+	ORDER_UPDATED("order_changed"),
   TRADE("trade"),
 	SUBSCRIPTION_SUCCEEDED("bts:subscription_succeeded"),
 	FORCED_RECONNECT("bts:request_reconnect"),

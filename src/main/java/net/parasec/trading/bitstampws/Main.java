@@ -37,14 +37,14 @@ public class Main {
 		};
 
 
-//		client.subscribeOrders("btcusd", orderHandler);
+		//client.subscribeOrders("btcusd", orderHandler);
 		client.subscribeTrades("btcusd", tradeHandler);
 //
 //		client.subscribeOrders("ethusd", orderHandler);
-//		client.subscribeTrades("ethusd", tradeHandler);
+		//client.subscribeTrades("ethusd", tradeHandler);
 //
 //		client.subscribeOrders("xrpusd", orderHandler);
-//		client.subscribeTrades("xrpusd", tradeHandler);
+		//client.subscribeTrades("xrpusd", tradeHandler);
 
 		//client.subscribeOrderBook("btcusd", orderBookHandler);
 		//client.subscribeDetailOrderBook("btcusd", detailOrderBookHandler);

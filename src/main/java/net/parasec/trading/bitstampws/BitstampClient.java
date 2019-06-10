@@ -8,7 +8,7 @@ import java.util.*;
 
 public class BitstampClient implements Client {
 
-	// de-couple javax.websocket.MessageHandler from Client.
+		// de-couple javax.websocket.MessageHandler from Client.
 	private class MH<T extends Event> implements MessageHandler.Whole<T> {
 		BitstampMessageHandler<T> bitstampMessageHandler;
 
@@ -17,26 +17,33 @@ public class BitstampClient implements Client {
 		}
 
 		public void onMessage(T message) {
-
 			// intercept control messages here.
 			// do not pass onto client.
-			System.out.println("event: " + message.event);
-
-			bitstampMessageHandler.onMessage(message);
-
+			switch (message.event) {
+				case ORDER_CREATED:
+				case ORDER_DELETED:
+				case ORDER_UPDATED:
+				case TRADE:
+				case DATA:
+					bitstampMessageHandler.onMessage(message);
+					break;
+				case FORCED_RECONNECT:
+					break;
+				case SUBSCRIPTION_SUCCEEDED:
+			}
 		}
 	}
 
-	private final Map<String, BitstampChannel> bitstampChannels = new HashMap<String, BitstampChannel>();
+	private final Map<String, BitstampChannel> bitstampChannels = new HashMap<>();
 
 
-	private String initChannel(MessageHandler messageHandler, Class<? extends Decoder> decoder,
+	private String initChannel(MessageHandler messageHandler, Class<? extends javax.websocket.Decoder> decoder,
 														 Channel channel,
 														 String pair) {
 
 		ClientEndpointConfig clientEndpointConfig = ClientEndpointConfig.Builder.create()
-				.encoders(Collections.<Class<? extends Encoder>>singletonList(CommandEncoder.class))
-				.decoders(Collections.<Class<? extends Decoder>>singletonList(decoder)).build();
+				.encoders(Collections.singletonList(CommandEncoder.class))
+				.decoders(Collections.singletonList(decoder)).build();
 
 		BitstampChannel bitstampChannel = new BitstampChannel(clientEndpointConfig, messageHandler, channel, pair);
 		try {
@@ -50,29 +57,26 @@ public class BitstampClient implements Client {
 		return null;
 	}
 
-	public String subscribeOrders(String pair, BitstampMessageHandler<OrderEvent> bitstampMessageHandler) {
-		MH<OrderEvent> messageHandler = new MH<OrderEvent>(bitstampMessageHandler);
-		return initChannel(messageHandler, OrderDecoder.class, Channel.LIVE_ORDERS, pair);
+	public String subscribeOrders(String pair,BitstampMessageHandler<OrderEvent> bitstampMessageHandler) {
+		return initChannel(new MH<>(bitstampMessageHandler), Decoders.OrderDecoder.class, Channel.LIVE_ORDERS, pair);
 	}
 
 	public String subscribeTrades(String pair, BitstampMessageHandler<TradeEvent> bitstampMessageHandler) {
-		MH<TradeEvent> messageHandler = new MH<TradeEvent>(bitstampMessageHandler);
-		return initChannel(messageHandler, TradeDecoder.class, Channel.LIVE_TRADES, pair);
+		//return initChannel(new MH<>(bitstampMessageHandler), TradeDecoder.class, Channel.LIVE_TRADES, pair);
+
+		return initChannel(new MH<>(bitstampMessageHandler), Decoders.TradeDecoder.class, Channel.LIVE_TRADES, pair);
 	}
 
 	public String subscribeOrderBook(String pair, BitstampMessageHandler<OrderBookEvent> bitstampMessageHandler) {
-		MH<OrderBookEvent> messageHandler = new MH<OrderBookEvent>(bitstampMessageHandler);
-		return initChannel(messageHandler, OrderBookDecoder.class, Channel.ORDER_BOOK, pair);
+		return initChannel(new MH<>(bitstampMessageHandler), Decoders.OrderBookDecoder.class, Channel.ORDER_BOOK, pair);
 	}
 
 	public String subscribeDetailOrderBook(String pair, BitstampMessageHandler<DetailOrderBookEvent> bitstampMessageHandler) {
-		MH<DetailOrderBookEvent> messageHandler = new MH<DetailOrderBookEvent>(bitstampMessageHandler);
-		return initChannel(messageHandler, DetailOrderBookDecoder.class, Channel.DETAIL_ORDER_BOOK, pair);
+		return initChannel(new MH<>(bitstampMessageHandler), Decoders.DetailOrderBookDecoder.class, Channel.DETAIL_ORDER_BOOK, pair);
 	}
 
 	public String subscribeDiffOrderBook(String pair, BitstampMessageHandler<DiffOrderBookEvent> bitstampMessageHandler) {
-		MH<DiffOrderBookEvent> messageHandler = new MH<DiffOrderBookEvent>(bitstampMessageHandler);
-		return initChannel(messageHandler, DiffOrderBookDecoder.class, Channel.DIFF_ORDER_BOOK, pair);
+		return initChannel(new MH<>(bitstampMessageHandler), Decoders.DiffOrderBookDecoder.class, Channel.DIFF_ORDER_BOOK, pair);
 	}
 
 	public void unsubscribe(String id) {
