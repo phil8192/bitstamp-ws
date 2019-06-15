@@ -22,10 +22,12 @@ public class OrderEvent extends Event {
 		public double price;
 		@JsonAttribute(name = "price_str", nullable = false)
 		public String priceStr;
-		@JsonAttribute(name = "order_type", nullable = false)
+		//@JsonAttribute(alternativeNames = {"order_type", "type"}, nullable = false)
+		@JsonAttribute(name = "order_type", alternativeNames = {"type"}, nullable = false)
 		public short type;
-		@JsonAttribute(name = "datetime", nullable = false)
-		public int dateTime;
+		//@JsonAttribute(alternativeNames = {"datetime", "timestamp"}, nullable = false)
+		@JsonAttribute(name = "datetime", alternativeNames = {"timestamp"}, nullable = false)
+		public int timestamp;
 		@JsonAttribute(name = "microtimestamp", nullable = false)
 		public long microTimestamp;
 
@@ -38,7 +40,7 @@ public class OrderEvent extends Event {
 					", price=" + price +
 					", priceStr='" + priceStr + '\'' +
 					", type=" + type +
-					", dateTime=" + dateTime +
+					", timestamp=" + timestamp +
 					", microTimestamp=" + microTimestamp +
 					'}';
 		}

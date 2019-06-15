@@ -37,9 +37,7 @@ public class BitstampClient implements Client {
 	private final Map<String, BitstampChannel> bitstampChannels = new HashMap<>();
 
 
-	private String initChannel(MessageHandler messageHandler, Class<? extends javax.websocket.Decoder> decoder,
-														 Channel channel,
-														 String pair) {
+	private String initChannel(MessageHandler messageHandler, Class<? extends Decoder> decoder, Channel channel, String pair) {
 
 		ClientEndpointConfig clientEndpointConfig = ClientEndpointConfig.Builder.create()
 				.encoders(Collections.singletonList(CommandEncoder.class))

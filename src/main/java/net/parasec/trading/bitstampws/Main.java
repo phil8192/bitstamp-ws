@@ -37,8 +37,8 @@ public class Main {
 		};
 
 
-		//client.subscribeOrders("btcusd", orderHandler);
-		client.subscribeTrades("btcusd", tradeHandler);
+		client.subscribeOrders("btcusd", orderHandler);
+//		client.subscribeTrades("btcusd", tradeHandler);
 //
 //		client.subscribeOrders("ethusd", orderHandler);
 		//client.subscribeTrades("ethusd", tradeHandler);
