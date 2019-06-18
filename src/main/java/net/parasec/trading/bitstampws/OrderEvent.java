@@ -22,10 +22,9 @@ public class OrderEvent extends Event {
 		public double price;
 		@JsonAttribute(name = "price_str", nullable = false)
 		public String priceStr;
-		//@JsonAttribute(alternativeNames = {"order_type", "type"}, nullable = false)
+		// todo: might be more efficient to have different (nullable) fields for these.
 		@JsonAttribute(name = "order_type", alternativeNames = {"type"}, nullable = false)
 		public short type;
-		//@JsonAttribute(alternativeNames = {"datetime", "timestamp"}, nullable = false)
 		@JsonAttribute(name = "datetime", alternativeNames = {"timestamp"}, nullable = false)
 		public int timestamp;
 		@JsonAttribute(name = "microtimestamp", nullable = false)
