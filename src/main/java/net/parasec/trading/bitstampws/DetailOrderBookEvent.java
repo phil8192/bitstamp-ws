@@ -22,8 +22,11 @@ public class DetailOrderBookEvent extends Event {
 		// [price, amount, order id]
 		@JsonAttribute(name = "asks", nullable = false)
 		public String[][] asks;
+
+
 		@JsonAttribute(name = "bids", nullable = false)
-		public String[][] bids;
+		//public String[][] bids;
+		public LimitOrder[] bids;
 
 		@Override
 		public String toString() {
@@ -31,9 +34,15 @@ public class DetailOrderBookEvent extends Event {
 					"timestamp=" + timestamp +
 					", microTimestamp=" + microTimestamp +
 					", asks=" + Arrays.stream(asks).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]")) +
-					", bids=" + Arrays.stream(bids).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]")) +
+					//", bids=" + Arrays.stream(bids).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]")) +
 					'}';
 		}
+	}
+
+	static class LimitOrder {
+		public double price;
+		public double volume;
+		public String id;
 	}
 
 	@Override

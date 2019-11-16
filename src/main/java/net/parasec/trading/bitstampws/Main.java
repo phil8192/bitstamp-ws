@@ -47,8 +47,8 @@ public class Main {
 		//client.subscribeTrades("xrpusd", tradeHandler);
 
 		//client.subscribeOrderBook("btcusd", orderBookHandler);
-		//client.subscribeDetailOrderBook("btcusd", detailOrderBookHandler);
-		client.subscribeDiffOrderBook("btcusd", diffOrderBookHandler);
+		client.subscribeDetailOrderBook("btcusd", detailOrderBookHandler);
+		//client.subscribeDiffOrderBook("btcusd", diffOrderBookHandler);
 
 
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> client.close()));
