@@ -8,7 +8,9 @@ Java client for Bitstamp's [https://www.bitstamp.net/websocket/v2/](Websocket AP
 
 ## Usage
 
-See `Client` interface.
+See
+[Client](https://github.com/phil8192/bitstamp-ws/blob/master/src/main/java/net/parasec/trading/bitstampws/Client.java)
+interface.
 
 For example, to stream Limit Orders:
 
