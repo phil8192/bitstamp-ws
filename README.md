@@ -4,7 +4,7 @@
 
 > Btstamp Websocket API v2 Java client
 
-Java client for Bitstamp's [https://www.bitstamp.net/websocket/v2/](Websocket API v2). 
+Java client for Bitstamp's [Websocket API v2](https://www.bitstamp.net/websocket/v2/). 
 
 ## Usage
 
