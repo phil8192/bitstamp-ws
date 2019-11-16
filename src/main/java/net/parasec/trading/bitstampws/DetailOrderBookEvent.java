@@ -19,14 +19,14 @@ public class DetailOrderBookEvent extends Event {
 		@JsonAttribute(name = "microtimestamp", nullable = false)
 		public long microTimestamp;
 
+		// todo: LimitOrder[] array would be best here - with a custom decoder?
 		// [price, amount, order id]
 		@JsonAttribute(name = "asks", nullable = false)
 		public String[][] asks;
 
 
 		@JsonAttribute(name = "bids", nullable = false)
-		//public String[][] bids;
-		public LimitOrder[] bids;
+		public String[][] bids;
 
 		@Override
 		public String toString() {
@@ -34,15 +34,9 @@ public class DetailOrderBookEvent extends Event {
 					"timestamp=" + timestamp +
 					", microTimestamp=" + microTimestamp +
 					", asks=" + Arrays.stream(asks).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]")) +
-					//", bids=" + Arrays.stream(bids).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]")) +
+					", bids=" + Arrays.stream(bids).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]")) +
 					'}';
 		}
-	}
-
-	static class LimitOrder {
-		public double price;
-		public double volume;
-		public String id;
 	}
 
 	@Override

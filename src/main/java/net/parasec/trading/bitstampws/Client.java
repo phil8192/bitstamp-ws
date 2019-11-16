@@ -2,6 +2,8 @@ package net.parasec.trading.bitstampws;
 
 /**
  * Main Bitstamp API interface.
+ *
+ * see https://www.bitstamp.net/websocket/v2/
  */
 public interface Client {
 	/**

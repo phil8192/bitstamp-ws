@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 
 
 public class BitstampChannel {
+	public final static String URI = "wss://ws.bitstamp.net";
 
 	private final ClientEndpointConfig clientEndpointConfig;
 	private final MessageHandler messageHandler;
@@ -59,7 +60,10 @@ public class BitstampChannel {
 				System.err.println("error: " + thr);
 			}
 		}
-		this.session = webSocketContainer.connectToServer(new MyEndpoint(), clientEndpointConfig, new URI("wss://ws.bitstamp.net"));
+		this.session = webSocketContainer.connectToServer(
+				new MyEndpoint(), clientEndpointConfig,
+				new URI(URI)
+		);
 	}
 
 	void close() {
