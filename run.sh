@@ -1,3 +1,4 @@
 #!/bin/bash
 # standalone mode
-java -jar target/bitstamp-ws-jar-with-dependencies.jar
+# ./run.sh btcusd ethusd
+java -jar target/bitstamp-ws-jar-with-dependencies.jar "$@"
