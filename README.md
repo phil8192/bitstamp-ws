@@ -5,7 +5,7 @@
 > Btstamp Websocket API v2 Java client
 
 Java client for Bitstamp's [Websocket API v2](https://www.bitstamp.net/websocket/v2/).
-Makes use of [dsl-json](https://github.com/ngs-doo/dsl-json) and [tyrus](ttps://tyrus-project.github.io/).
+Makes use of [dsl-json](https://github.com/ngs-doo/dsl-json) and [tyrus](https://tyrus-project.github.io/).
 
 ## Usage
 
