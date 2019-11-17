@@ -13,7 +13,7 @@ See
 [Client](https://github.com/phil8192/bitstamp-ws/blob/master/src/main/java/net/parasec/trading/bitstampws/Client.java)
 interface.
 
-For example, to stream Limit Orders:
+For example, to stream limit orders for `btcusd`:
 
 ```java
 // 1. Specify a message handler
