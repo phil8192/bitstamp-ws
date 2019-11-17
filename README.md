@@ -16,11 +16,14 @@ interface.
 For example, to stream Limit Orders:
 
 ```java
-// Specify a message handler
-BitstampMessageHandler<OrderEvent> orderHandler = order
-  -> System.out.println(order);
-// subscribe to channel
-client.subscribeOrders("btcusd", orderHandler);
+// 1. Specify a message handler
+BitstampMessageHandler<OrderEvent> orderHandler = order -> System.out.println(order);
+
+// 2. subscribe to channel
+String subscriptionId client.subscribeOrders("btcusd", orderHandler);
+
+// 3. close channel
+client.unsubscribe(subscriptionId)
 ```
 
 It is expected that the message handler puts the message on a non-blocking queue or similar (performs minimal work). 
