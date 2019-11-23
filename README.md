@@ -17,12 +17,13 @@ For example, to stream limit orders for `btcusd`:
 
 ```java
 // 1. Specify a message handler
+Client client = new BitstampClient();
 BitstampMessageHandler<OrderEvent> orderHandler = order -> System.out.println(order);
 
-// 2. subscribe to channel
-String subscriptionId client.subscribeOrders("btcusd", orderHandler);
+// 2. Subscribe to channel
+String subscriptionId = client.subscribeOrders("btcusd", orderHandler);
 
-// 3. close channel
+// 3. Close channel
 client.unsubscribe(subscriptionId)
 ```
 

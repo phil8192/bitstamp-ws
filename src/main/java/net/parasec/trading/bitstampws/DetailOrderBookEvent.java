@@ -13,7 +13,7 @@ public class DetailOrderBookEvent extends Event {
 	@JsonAttribute(name = "data", nullable = false)
 	public OrderBook orderBook;
 
-	static class OrderBook {
+	public static class OrderBook {
 		@JsonAttribute(name = "timestamp", nullable = false)
 		public int timestamp;
 		@JsonAttribute(name = "microtimestamp", nullable = false)

@@ -10,7 +10,7 @@ public class OrderEvent extends Event {
 	@JsonAttribute(name = "data", nullable = false)
 	public Order order;
 
-	static class Order {
+	public static class Order {
 
 		@JsonAttribute(name = "id", nullable = false)
 		public long id;

@@ -10,7 +10,7 @@ public class TradeEvent extends Event {
 	@JsonAttribute(name = "data", nullable = false)
 	public Trade trade;
 
-	static class Trade extends OrderEvent.Order {
+	public static class Trade extends OrderEvent.Order {
 
 		@JsonAttribute(name = "buy_order_id", nullable = false)
 		public long buyOrderId;
