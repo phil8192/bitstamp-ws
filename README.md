@@ -27,4 +27,7 @@ String subscriptionId = client.subscribeOrders("btcusd", orderHandler);
 client.unsubscribe(subscriptionId)
 ```
 
+Example [here](https://github.com/phil8192/limit-order-book/blob/master/src/main/java/net/parasec/ob/OrderBookStream.java).
+
+
 It is expected that the message handler puts the message on a non-blocking queue or similar (performs minimal work). 
