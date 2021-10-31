@@ -28,6 +28,7 @@ public class BitstampClient implements Client {
 					bitstampMessageHandler.onMessage(message);
 					break;
 				case FORCED_RECONNECT:
+					System.err.println("forced reconnect received");
 					break;
 				case SUBSCRIPTION_SUCCEEDED:
 			}
@@ -38,8 +39,8 @@ public class BitstampClient implements Client {
 
 
 	private String initChannel(MessageHandler messageHandler,
-														 Class<? extends Decoder> decoder,
-														 Channel channel, String pair) {
+							   Class<? extends Decoder> decoder,
+							   Channel channel, String pair) {
 
 		ClientEndpointConfig clientEndpointConfig = ClientEndpointConfig.Builder.create()
 				.encoders(Collections.singletonList(CommandEncoder.class))
@@ -59,7 +60,7 @@ public class BitstampClient implements Client {
 	}
 
 	public String subscribeOrders(String pair,
-																BitstampMessageHandler<OrderEvent> bitstampMessageHandler) {
+								  BitstampMessageHandler<OrderEvent> bitstampMessageHandler) {
 		return initChannel(
 				new MH<>(bitstampMessageHandler),
 				Decoders.OrderDecoder.class,
@@ -69,7 +70,7 @@ public class BitstampClient implements Client {
 	}
 
 	public String subscribeTrades(String pair,
-																BitstampMessageHandler<TradeEvent> bitstampMessageHandler) {
+								  BitstampMessageHandler<TradeEvent> bitstampMessageHandler) {
 		return initChannel(
 				new MH<>(bitstampMessageHandler),
 				Decoders.TradeDecoder.class,
@@ -79,7 +80,7 @@ public class BitstampClient implements Client {
 	}
 
 	public String subscribeOrderBook(String pair,
-																	 BitstampMessageHandler<OrderBookEvent> bitstampMessageHandler) {
+									 BitstampMessageHandler<OrderBookEvent> bitstampMessageHandler) {
 		return initChannel(
 				new MH<>(bitstampMessageHandler),
 				Decoders.OrderBookDecoder.class,
@@ -88,7 +89,7 @@ public class BitstampClient implements Client {
 	}
 
 	public String subscribeDetailOrderBook(String pair,
-																				 BitstampMessageHandler<DetailOrderBookEvent> bitstampMessageHandler) {
+										   BitstampMessageHandler<DetailOrderBookEvent> bitstampMessageHandler) {
 		return initChannel(
 				new MH<>(bitstampMessageHandler),
 				Decoders.DetailOrderBookDecoder.class,
@@ -97,7 +98,7 @@ public class BitstampClient implements Client {
 	}
 
 	public String subscribeDiffOrderBook(String pair,
-																			 BitstampMessageHandler<DiffOrderBookEvent> bitstampMessageHandler) {
+										 BitstampMessageHandler<DiffOrderBookEvent> bitstampMessageHandler) {
 		return initChannel(
 				new MH<>(bitstampMessageHandler),
 				Decoders.DiffOrderBookDecoder.class,
@@ -112,7 +113,7 @@ public class BitstampClient implements Client {
 
 	public void close() {
 		for (Iterator<Map.Entry<String, BitstampChannel>> it = bitstampChannels.entrySet().iterator();
-				 it.hasNext(); ) {
+			 it.hasNext(); ) {
 			Map.Entry<String, BitstampChannel> entry = it.next();
 			entry.getValue().close();
 			it.remove();

@@ -42,4 +42,22 @@ public class TradeEvent extends Event {
 				", channel='" + channel + '\'' +
 				'}';
 	}
+
+	@Override
+	public String toCsv() {
+		final Trade trade = this.trade;
+		final long now = Util.timeMicroSeconds();
+		final String makerTaker;
+		if(trade.type == 0) {
+			makerTaker = trade.sellOrderId + "," + trade.buyOrderId + ",0";
+		} else {
+			makerTaker = trade.buyOrderId + "," + trade.sellOrderId + ",1";
+		}
+		return now + "," +
+				trade.microTimestamp + "," +
+				trade.id + "," +
+				makerTaker + "," +
+				trade.priceStr + "," +
+				trade.amountStr;
+	}
 }

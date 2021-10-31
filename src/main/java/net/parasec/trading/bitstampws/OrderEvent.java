@@ -3,6 +3,7 @@ package net.parasec.trading.bitstampws;
 import com.dslplatform.json.CompiledJson;
 import com.dslplatform.json.JsonAttribute;
 import net.parasec.trading.bitstampws.websocket.Event;
+import net.parasec.trading.bitstampws.websocket.EventType;
 
 @CompiledJson
 public class OrderEvent extends Event {
@@ -52,5 +53,26 @@ public class OrderEvent extends Event {
 				", channel='" + channel + '\'' +
 				", order=" + order +
 				'}';
+	}
+
+	@Override
+	public String toCsv() {
+		final Order order = this.order;
+		final long now = Util.timeMicroSeconds();
+		final long event_int;
+		if(event.equals(EventType.ORDER_CREATED)) {
+			event_int = 0;
+		} else if (event.equals(EventType.ORDER_DELETED)) {
+			event_int = 1;
+		} else {
+			event_int = 2;
+		}
+		return now + "," +
+				order.microTimestamp + "," +
+				order.id + "," +
+				event_int + "," +
+				order.type + "," +
+				order.priceStr + "," +
+				order.amountStr;
 	}
 }

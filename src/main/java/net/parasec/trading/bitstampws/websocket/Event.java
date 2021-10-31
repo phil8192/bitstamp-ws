@@ -11,4 +11,8 @@ public class Event {
 
 	@JsonAttribute(name = "channel", nullable = false)
 	public String channel;
+
+	public String toCsv() {
+		return "Event";
+	}
 }

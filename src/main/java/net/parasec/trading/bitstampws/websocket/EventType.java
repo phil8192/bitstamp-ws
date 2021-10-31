@@ -6,12 +6,13 @@ public enum EventType {
 	ORDER_CREATED("order_created"),
 	ORDER_DELETED("order_deleted"),
 	ORDER_UPDATED("order_changed"),
-  TRADE("trade"),
+	TRADE("trade"),
 	SUBSCRIPTION_SUCCEEDED("bts:subscription_succeeded"),
 	FORCED_RECONNECT("bts:request_reconnect"),
-	DATA("data"); //ob
+	DATA("data"); // ob
 
 	String s;
+
 	EventType(String s) {
 		this.s = s;
 	}
