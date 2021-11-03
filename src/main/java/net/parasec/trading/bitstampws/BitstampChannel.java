@@ -57,7 +57,7 @@ public class BitstampChannel {
 				}
 
 				executorService.scheduleAtFixedRate(() -> {
-					System.err.println(Util.timeMicroSeconds() + " PING");
+					//System.err.println(Util.timeMicroSeconds() + " PING");
 					try {
 						ByteBuffer payload = ByteBuffer.wrap("PING".getBytes());
 						session.getAsyncRemote().sendPing(payload);
