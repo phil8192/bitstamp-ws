@@ -1,6 +1,6 @@
 #!/bin/bash
 # standalone mode
-# ./run.sh btcusd orders >orders.csv
+# ./run.sh btcusd orders
 java -jar target/bitstamp-ws-jar-with-dependencies.jar "$@"
 
 

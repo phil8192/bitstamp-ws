@@ -9,6 +9,25 @@ Makes use of [dsl-json](https://github.com/ngs-doo/dsl-json) and [tyrus](https:/
 
 ## Usage
 
+This can be run in stand-alone mode for *orders* or *trades*. Running the below
+will result in a logfile with the format `pair-type-YYYY-MM-DD.csv`, Change
+`pair` for the market, `type` as either `orders` or `trades`.
+
+The logfiles will rotate each day (UTC),
+
+
+```bash
+./run.sh btusd orders
+```
+
+or
+
+```bash
+./run.sh btusd trades
+```
+
+
+### API
 See
 [Client](https://github.com/phil8192/bitstamp-ws/blob/master/src/main/java/net/parasec/trading/bitstampws/Client.java)
 interface.

@@ -2,20 +2,23 @@ package net.parasec.trading.bitstampws;
 
 public class Main {
 
+	static String HEADER_TRADES = "local_time,exchange_time,trade_id,maker_id,taker_id,action,price,volume";
+	static String HEADER_ORDERS = "local_time,exchange_time,order_id,action,side,price,volume";
+
 	/**
-	 * Just output (orders) to terminal.
-	 *
+	 * Output to log-files.
+	 * <p>
 	 * Expects a list of pairs. E.g.,
-	 *
+	 * <p>
 	 * Fiat:         eurusd
 	 * Bitcoin:      btcusd, btceur
 	 * Ether:        ethusd, etheur, ethbtc
 	 * Ripple:       xrpusd, xrpeur, xrpbtc
 	 * Litecoin:     ltcusd, ltceur, ltcbtc
 	 * Bitcoin Cash: bchusd, btheur, bchbtc
-	 *
+	 * <p>
 	 * Example:
-	 *
+	 * <p>
 	 * btcusd btceur ethusd
 	 *
 	 * @param args List of currency pairs
@@ -27,13 +30,11 @@ public class Main {
 
 		Client client = new BitstampClient();
 
-		if(what.equals("orders")) {
-			System.out.println("local_time,exchange_time,order_id,action,side,price,volume");
-			BitstampMessageHandler<OrderEvent> orderHandler = message -> System.out.println(message.toCsv());
+		if (what.equals("orders")) {
+			BitstampMessageHandler<OrderEvent> orderHandler = message -> Util.log(pair, what, message.toCsv(), HEADER_ORDERS);
 			client.subscribeOrders(pair, orderHandler);
-		} else if(what.equals("trades")) {
-			System.out.println("local_time,exchange_time,trade_id,maker_id,taker_id,action,price,volume");
-			BitstampMessageHandler<TradeEvent> tradeHandler = message -> System.out.println(message.toCsv());
+		} else if (what.equals("trades")) {
+			BitstampMessageHandler<TradeEvent> tradeHandler = message -> Util.log(pair, what, message.toCsv(), HEADER_TRADES);
 			client.subscribeTrades(pair, tradeHandler);
 		} else {
 			System.err.println("expected <orders|trades>");

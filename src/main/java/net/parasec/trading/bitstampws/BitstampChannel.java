@@ -41,8 +41,8 @@ public class BitstampChannel {
 
 			@Override
 			public void onOpen(Session session, EndpointConfig endpointConfig) {
-				System.err.println(Util.timeMicroSeconds() + " connection established");
-				if(!session.getMessageHandlers().contains(messageHandler)) {
+				System.out.println(Util.timeMicroSeconds() + " connection established");
+				if (!session.getMessageHandlers().contains(messageHandler)) {
 					session.addMessageHandler(messageHandler);
 				}
 
@@ -57,14 +57,13 @@ public class BitstampChannel {
 				}
 
 				executorService.scheduleAtFixedRate(() -> {
-					//System.err.println(Util.timeMicroSeconds() + " PING");
 					try {
 						ByteBuffer payload = ByteBuffer.wrap("PING".getBytes());
 						session.getAsyncRemote().sendPing(payload);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					}, 1, 1, TimeUnit.SECONDS);
+				}, 1, 1, TimeUnit.SECONDS);
 			}
 
 			@Override
