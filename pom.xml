@@ -18,17 +18,17 @@
         <dependency>
             <groupId>org.glassfish.tyrus.bundles</groupId>
             <artifactId>tyrus-standalone-client</artifactId>
-            <version>1.20</version>
+            <version>1.21</version>
         </dependency>
         <dependency>
             <groupId>com.dslplatform</groupId>
-            <artifactId>dsl-json-java8</artifactId>
-            <version>1.10.0</version>
+            <artifactId>dsl-json</artifactId>
+            <version>2.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.zeromq</groupId>
             <artifactId>jeromq</artifactId>
-            <version>0.5.3</version>
+            <version>0.6.0</version>
         </dependency>
     </dependencies>
     <build>
