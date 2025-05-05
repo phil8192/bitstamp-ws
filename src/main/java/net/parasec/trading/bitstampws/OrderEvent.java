@@ -24,8 +24,12 @@ public class OrderEvent extends Event {
 		@JsonAttribute(name = "price_str", nullable = false)
 		public String priceStr;
 		// todo: might be more efficient to have different (nullable) fields for these.
+		// 0 - buy, 1 - sell.
 		@JsonAttribute(name = "order_type", alternativeNames = {"type"}, nullable = false)
 		public short type;
+		// (0 - limit; 1 - instant; 2 - market; 3 - daily; 4 - IOC; 5 - MOC; 6 - FOK; 7 - CASH SELL; 8 - GTD).
+		@JsonAttribute(name = "order_subtype", alternativeNames = {"subtype"}, nullable = false)
+		public short subType;
 		@JsonAttribute(name = "datetime", alternativeNames = {"timestamp"}, nullable = false)
 		public int timestamp;
 		@JsonAttribute(name = "microtimestamp", nullable = false)
@@ -40,6 +44,7 @@ public class OrderEvent extends Event {
 					", price=" + price +
 					", priceStr='" + priceStr + '\'' +
 					", type=" + type +
+					", subtype=" + subType +
 					", timestamp=" + timestamp +
 					", microTimestamp=" + microTimestamp +
 					'}';
@@ -60,7 +65,7 @@ public class OrderEvent extends Event {
 		final Order order = this.order;
 		final long now = Util.timeMicroSeconds();
 		final long event_int;
-		if(event.equals(EventType.ORDER_CREATED)) {
+		if (event.equals(EventType.ORDER_CREATED)) {
 			event_int = 0;
 		} else if (event.equals(EventType.ORDER_DELETED)) {
 			event_int = 1;
@@ -72,6 +77,7 @@ public class OrderEvent extends Event {
 				order.id + "," +
 				event_int + "," +
 				order.type + "," +
+				order.subType + "," +
 				order.priceStr + "," +
 				order.amountStr;
 	}

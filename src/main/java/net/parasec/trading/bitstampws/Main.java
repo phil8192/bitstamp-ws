@@ -3,7 +3,7 @@ package net.parasec.trading.bitstampws;
 public class Main {
 
 	static String HEADER_TRADES = "local_time,exchange_time,trade_id,maker_id,taker_id,action,price,volume";
-	static String HEADER_ORDERS = "local_time,exchange_time,order_id,action,side,price,volume";
+	static String HEADER_ORDERS = "local_time,exchange_time,order_id,action,side,type,price,volume";
 
 	/**
 	 * Output to log-files.

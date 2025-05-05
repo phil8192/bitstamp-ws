@@ -1,6 +1,5 @@
 package net.parasec.trading.bitstampws;
 
-import jdk.vm.ci.code.site.Call;
 import net.parasec.trading.bitstampws.websocket.*;
 
 import javax.websocket.*;

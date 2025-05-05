@@ -3,9 +3,9 @@ package net.parasec.trading.bitstampws.websocket;
 // https://www.bitstamp.net/websocket/v2/
 public class Command {
 
-	private ChannelEvent event;
-	private Channel channel;
-	private String pair;
+	private final ChannelEvent event;
+	private final Channel channel;
+	private final String pair;
 
 	public Command(ChannelEvent event, Channel channel, String pair) {
 		this.event = event;

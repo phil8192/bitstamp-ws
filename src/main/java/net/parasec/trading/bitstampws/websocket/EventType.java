@@ -11,7 +11,7 @@ public enum EventType {
 	FORCED_RECONNECT("bts:request_reconnect"),
 	DATA("data"); // ob
 
-	String s;
+	final String s;
 
 	EventType(String s) {
 		this.s = s;
